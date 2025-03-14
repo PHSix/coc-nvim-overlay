@@ -9,6 +9,7 @@ A Nixpkgs overlay providing updated/missing Coc.nvim extensions for Neovim. Incl
 - `coc-volar`
 - `coc-sumneko-lua`
 - `coc-eslint-tools`
+- `coc-go`
 
 ## Installation
 
