@@ -1,13 +1,17 @@
 { pkgs, fetchurl, ... }:
 pkgs.vimUtils.buildVimPlugin rec {
   pname = "coc-ocaml";
-  version = "0.1.0";
+  version = "0.1.1";
   src = fetchurl {
     url = "https://registry.npmjs.org/@ph_chen/${pname}/-/${pname}-${version}.tgz";
-    sha256 = "sha256-zMgADScfRKhFButbb4LJfL1qBV0yvDhs95QrMW1PRkU=";
+    sha256 = "sha256-fcKB0QKtuUHowJvOV3BLNzEaeTt6emXSOp3OeIX7FnE=";
   };
 
-  buildInputs = [ pkgs.ocaml pkgs.opam pkgs.ocamlPackages.ocamlformat ];
+  nativeBuildInputs = [ pkgs.jq ];
+
+  prePatch = ''
+    jq '.contributes.configuration.properties."lspStartCommand".default = "${pkgs.opam}/bin/opam"' package.json > package.json.tmp && mv package.json.tmp package.json
+  '';
 
   meta = with pkgs.lib; {
     description = "Simple ocaml language service for coc.nvim";
